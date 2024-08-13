@@ -1,13 +1,21 @@
 import { useState } from "react";
 
 const CreateTodo = ({ createNewTodo }) => {
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+  const [todo, setTodo] = useState({ title: "", desc: "" });
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    setTodo((prevTodo) => ({
+      ...prevTodo,
+      [name]: value,
+    }));
+  };
 
   const handleClick = () => {
-    createNewTodo(title, desc);
-    setTitle("");
-    setDesc("");
+    createNewTodo(todo);
+    setTodo({ title: "", desc: "" });
   };
 
   return (
@@ -15,15 +23,15 @@ const CreateTodo = ({ createNewTodo }) => {
       <input
         type="text"
         name="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={todo.title}
+        onChange={handleChange}
       />
       <br />
       <input
         type="text"
         name="desc"
-        value={desc}
-        onChange={(e) => setDesc(e.target.value)}
+        value={todo.desc}
+        onChange={handleChange}
       />
       <br />
       <button onClick={handleClick}>Create</button>
