@@ -10,6 +10,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [visibility, setVisibility] = useState("all");
 
+  // TODO: create new todo list
   const createNewTodo = (todoList) => {
     const { title, desc } = todoList;
 
@@ -24,6 +25,7 @@ function App() {
     setTodos([todo, ...todos]);
   };
 
+  // TODO: complete todo lists
   const toggleCompleted = (id) => {
     const newTodos = todos.map((todo) => {
       if (todo.id === id) {
@@ -35,10 +37,22 @@ function App() {
     console.log(todos);
   };
 
+  // TODO: delete todos based on id
+  const removeTodo = (id) => {
+    setTodos(() => {
+      const filteredTodos = todos.filter((item) => item.id !== id);
+      console.log(filteredTodos);
+
+      return filteredTodos;
+    });
+  };
+
+  // TODO: set visibility for filter lists
   const handleVisibility = (text) => {
     setVisibility(text);
   };
 
+  // TODO: filter todos functionality
   const filterTodo = () => {
     if (visibility === "incomplete")
       return todos.filter((item) => !item.isCompleted);
@@ -62,7 +76,11 @@ function App() {
           </button>
         </div>
         <div>Select Visibility: {visibility}</div>
-        <DisplayTodos todos={filterTodo()} toggleCompleted={toggleCompleted} />
+        <DisplayTodos
+          todos={filterTodo()}
+          toggleCompleted={toggleCompleted}
+          removeTodo={removeTodo}
+        />
       </div>
     </>
   );
